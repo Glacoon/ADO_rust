@@ -18,7 +18,7 @@ fn get_line_in_tab(filename: &str) {
                     .map(|level_str| level_str.parse().unwrap_or(0))
                     .collect();
                 println!("Tab: {:?}", levels);
-                is_safe(levels)
+                is_safe_bis(levels)
             })
         })
         .filter(|&is_safe_report| is_safe_report)
@@ -60,6 +60,29 @@ fn is_safe(list: Vec<i32>) -> bool {
             false
         }
     }
+}
+
+fn is_safe_bis(list: Vec<i32>) -> bool {
+    if is_safe(list.clone()) {
+        return true;
+    }
+
+    for i in 0..list.len(){
+        let new_list = remove_element(list.clone(), i);
+
+        if is_safe(new_list) {
+            return true
+        }
+
+    }
+
+    false
+
+}
+
+fn remove_element(mut list: Vec<i32>, index: usize) -> Vec<i32> {
+    list.remove(index);
+    list
 }
 
 fn main() {
